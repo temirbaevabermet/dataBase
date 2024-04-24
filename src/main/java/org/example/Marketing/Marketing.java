@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Marketing;
 
 public class Marketing {
     private int id;
@@ -46,4 +46,7 @@ public class Marketing {
     public void setBudget(String budget) {
         this.budget = budget;
     }
+
+
+
 }

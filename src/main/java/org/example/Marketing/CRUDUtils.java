@@ -1,7 +1,9 @@
-package org.example;
+package org.example.Marketing;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class CRUDUtils {
     private static String INSERT_MARKETING = "INSERT INTO marketing(name, budget) VALUES(?, ?);";
@@ -23,6 +25,25 @@ public class CRUDUtils {
     return marketing;
 
     }
+    public static List<MarketingCategoryList> getMarketingCategoryData(String query){
+        List<MarketingCategoryList> marketingCategoryList = new ArrayList<>();
+        try(Connection connection = DBUtils.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String subscribers = rs.getString("subscribers");
+                marketingCategoryList.add(new MarketingCategoryList(id, name, subscribers));
+            }
+
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return marketingCategoryList;
+
+    }
+
 
     public static List<Marketing> saveMarketing(Marketing marketing){
         List<Marketing> marketings = new ArrayList<>();
